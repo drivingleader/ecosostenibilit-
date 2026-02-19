@@ -3,285 +3,445 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corso Logistica per Autisti: Dai Quiz alla Strada</title>
+    <title>Logistica per Autisti - Presentazione</title>
     <style>
-        body {
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #2c3e50;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
+        /* Contenitore 16:9 */
+        #presentation-container {
+            width: 100vw;
+            height: 56.25vw; /* Rapporto 16:9 */
+            max-width: 177.78vh;
+            max-height: 100vh;
+            background-color: #f9f9f9;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            padding: 4%;
+            box-sizing: border-box;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tipografia scalabile */
         h1 {
             color: #1a5276;
+            font-size: 4.5vh;
             text-align: center;
             border-bottom: 3px solid #1a5276;
-            padding-bottom: 10px;
+            padding-bottom: 2vh;
+            margin-top: 0;
         }
+
         h2 {
             color: #2980b9;
-            margin-top: 40px;
-            border-bottom: 2px solid #bdc3c7;
-            padding-bottom: 5px;
+            font-size: 3.5vh;
+            text-align: center;
+            margin-bottom: 4vh;
         }
-        .intro-box {
-            background-color: #e8f4f8;
-            border-left: 5px solid #2980b9;
-            padding: 15px;
-            margin-bottom: 30px;
-            border-radius: 0 5px 5px 0;
+
+        .content-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
-        .analogy-card {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+        p {
+            font-size: 3.2vh;
+            line-height: 1.6;
+            color: #333;
+            max-width: 90%;
         }
-        .analogy-card h3 {
-            margin-top: 0;
+
+        .highlight-text {
             color: #e67e22;
+            font-weight: bold;
+            font-size: 3.8vh;
+            margin-bottom: 2vh;
         }
+
+        /* Tabelle per i quiz */
         table {
-            width: 100%;
+            width: 95%;
             border-collapse: collapse;
-            margin-bottom: 30px;
             background-color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            font-size: 2.8vh;
+            margin: auto;
         }
+
         th {
             background-color: #2c3e50;
             color: white;
             text-align: left;
-            padding: 12px;
+            padding: 2vh;
         }
+
         td {
-            padding: 10px 12px;
+            padding: 2.5vh 2vh;
             border-bottom: 1px solid #eee;
             vertical-align: middle;
         }
-        tr:hover {
-            background-color: #f5f5f5;
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
         }
-        /* Stili per il focus oculare */
+
+        /* Focus Oculare */
         .radice {
             color: #7f8c8d;
             font-style: italic;
             font-size: 0.9em;
         }
+
         .chiave {
             background-color: #fff2a8;
             border: 1px solid #f1c40f;
-            padding: 2px 5px;
-            border-radius: 3px;
+            padding: 0.5vh 1vh;
+            border-radius: 4px;
             font-weight: bold;
             color: #d35400;
         }
+
         .vero {
             background-color: #27ae60;
             color: white;
             font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 4px;
-            display: inline-block;
+            padding: 1vh 2vh;
+            border-radius: 6px;
             text-align: center;
-            width: 20px;
+            display: inline-block;
         }
+
         .falso {
             background-color: #c0392b;
             color: white;
             font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 4px;
-            display: inline-block;
+            padding: 1vh 2vh;
+            border-radius: 6px;
             text-align: center;
-            width: 20px;
+            display: inline-block;
+        }
+
+        /* Controlli */
+        .controls {
+            position: absolute;
+            bottom: 2vh;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 4%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            padding: 1.5vh 3vh;
+            font-size: 2.5vh;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #1a5276;
+        }
+
+        .slide-counter {
+            font-size: 2.5vh;
+            color: #7f8c8d;
+            align-self: center;
         }
     </style>
 </head>
 <body>
 
-    <h1>Logistica: Dal Test Ministeriale alla Guida su Strada</h1>
+    <div id="presentation-container">
 
-    <div class="intro-box">
-        <strong>Nota per l'aula:</strong> Prima di imparare a memoria le risposte, diamo un senso a questi quiz. Perché a un futuro conducente di scuolabus o autobus di linea viene chiesto di conoscere l'e-commerce, l'ultimo miglio o il packaging? Perché <strong>voi siete l'anello più critico del sistema logistico</strong>, e il vostro "carico" è il più prezioso in assoluto.
+        <div class="slide active">
+            <div class="content-box">
+                <h1 style="border: none; font-size: 6vh; color: #2c3e50;">Logistica per Conducenti</h1>
+                <h2 style="font-size: 4vh; color: #e67e22;">Dalla teoria ministeriale alla strada</h2>
+                <p>Usa le frecce destra/sinistra della tastiera per navigare.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>1. Il Sistema Logistico e la Visione Integrata</h1>
+            <div class="content-box">
+                <div class="highlight-text">Sullo scuolabus tu non sei "solo uno che guida".</div>
+                <p>Se l'officina non fa manutenzione, se l'ufficio non pianifica le fermate, il bus non parte. Sei l'ultimo anello di un <strong>sistema aziendale integrato</strong>.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>2. L'E-commerce e "L'Ultimo Miglio"</h1>
+            <div class="content-box">
+                <div class="highlight-text">Chi intasa le strade dove devi manovrare un mezzo da 12 metri?</div>
+                <p>I furgoncini delle consegne! L'ultimo miglio è critico. Conoscerlo ti aiuta a prevedere il traffico urbano e i veicoli in doppia fila davanti alle scuole.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>3. Tracciabilità e Cliente Finale</h1>
+            <div class="content-box">
+                <div class="highlight-text">Il tuo cliente è il genitore alla fermata sotto la pioggia.</div>
+                <p>Oggi usano le app per tracciare il bus. Se ritardi o salti una fermata (errore di consegna), il sistema salta. <strong>La puntualità è il tuo prodotto</strong>.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>4. Reverse Logistics (Logistica di ritorno)</h1>
+            <div class="content-box">
+                <div class="highlight-text">Cos'è il "reso" per un autista?</div>
+                <p>È il bambino che non trova i genitori alla fermata e deve essere riportato al deposito o a scuola, oppure lo zaino smarrito a bordo che deve tornare al proprietario.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>5. Sostenibilità</h1>
+            <div class="content-box">
+                <div class="highlight-text">Tenere il motore acceso fermi davanti a scuola...</div>
+                <p>...fa respirare gas di scarico ai bambini e brucia i soldi dell'azienda. Spegnere il motore durante l'attesa è <strong>logistica sostenibile applicata</strong>.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-box">
+                <h1 style="border: none; font-size: 5vh; color: #2c3e50;">Studio Rapido dei Quiz</h1>
+                <h2 style="font-size: 3.5vh; color: #e67e22;">Alleniamo il "Focus Oculare"</h2>
+                <p>Ignora la parte di testo grigia all'inizio della frase. L'occhio deve cercare solo <strong>la parola evidenziata in giallo</strong> per capire subito se è VERO o FALSO.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Le Domande: "La Logistica..."</h1>
+            <table>
+                <tr>
+                    <th width="25%">Inizio frase</th>
+                    <th width="60%">Cerca questa parola (Focus)</th>
+                    <th width="15%">V/F</th>
+                </tr>
+                <tr>
+                    <td><span class="radice">La logistica...</span></td>
+                    <td>...è l'<span class="chiave">insieme</span> delle attività... / <span class="chiave">risolve</span> problemi di <span class="chiave">puntualità</span></td>
+                    <td><span class="vero">V</span></td>
+                </tr>
+                <tr>
+                    <td><span class="radice">La logistica...</span></td>
+                    <td>...è <span class="chiave">esclusivamente</span> lo stoccaggio... / <span class="chiave">non è influenzata</span> da mercati</td>
+                    <td><span class="falso">F</span></td>
+                </tr>
+                <tr>
+                    <td><span class="radice">La logistica risolve...</span></td>
+                    <td>...problemi legati a: <span class="chiave">manutenzione veicoli / tutela legale</span></td>
+                    <td><span class="falso">F</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="slide">
+            <h1>Le Domande: "Il Sistema Logistico..."</h1>
+            <table>
+                <tr>
+                    <th width="25%">Inizio frase</th>
+                    <th width="60%">Cerca questa parola (Focus)</th>
+                    <th width="15%">V/F</th>
+                </tr>
+                <tr>
+                    <td><span class="radice">Il sistema logistico...</span></td>
+                    <td>...è un insieme di <span class="chiave">sottosistemi interdipendenti</span> / visione <span class="chiave">integrata</span></td>
+                    <td><span class="vero">V</span></td>
+                </tr>
+                <tr>
+                    <td><span class="radice">Il sistema logistico...</span></td>
+                    <td>...è il <span class="chiave">parco veicolare</span> / è un <span class="chiave">unico sistema non suddivisibile</span></td>
+                    <td><span class="falso">F</span></td>
+                </tr>
+                <tr>
+                    <td><span class="radice">Il sistema logistico...</span></td>
+                    <td>...<span class="chiave">non deve</span> essere necessariamente <span class="chiave">interfacciato</span></td>
+                    <td><span class="falso">F</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="slide">
+            <h1>Le Domande: "La corretta programmazione..."</h1>
+            <table>
+                <tr>
+                    <th width="25%">Inizio frase</th>
+                    <th width="60%">Cerca questa parola (Focus)</th>
+                    <th width="15%">V/F</th>
+                </tr>
+                <tr>
+                    <td><span class="radice">La programmazione...</span></td>
+                    <td>...diminuisce <span class="chiave">impatto ambientale E i costi</span> (Entrambi i benefici)</td>
+                    <td><span class="vero">V</span></td>
+                </tr>
+                <tr>
+                    <td><span class="radice">La programmazione...</span></td>
+                    <td>...diminuisce i costi <span class="chiave">ma aumenta l'impatto</span> / <span class="chiave">nessuna correlazione</span></td>
+                    <td><span class="falso">F</span></td>
+                </tr>
+                <tr>
+                    <td><span class="radice">La programmazione...</span></td>
+                    <td>...diminuisce <span class="chiave">solo i costi</span> (Manca l'ambiente, incompleta)</td>
+                    <td><span class="falso">F</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="slide">
+            <h1>Le Domande: "L'Outsourcing (Esternalizzare)"</h1>
+            <table>
+                <tr>
+                    <th width="25%">Inizio frase</th>
+                    <th width="60%">Cerca questa parola (Focus)</th>
+                    <th width="15%">V/F</th>
+                </tr>
+                <tr>
+                    <td><span class="radice">L'outsourcing...</span></td>
+                    <td>...<span class="chiave">sopperisce alla mancanza</span> di know how / l'azienda mantiene il <span class="chiave">controllo</span></td>
+                    <td><span class="vero">V</span></td>
+                </tr>
+                <tr>
+                    <td><span class="radice">L'outsourcing...</span></td>
+                    <td>...<span class="chiave">non comporta rischi</span> / <span class="chiave">non ottiene</span> riduzione costi</td>
+                    <td><span class="falso">F</span></td>
+                </tr>
+                <tr>
+                    <td><span class="radice">L'outsourcing...</span></td>
+                    <td>...<span class="chiave">non può</span> essere realizzato "in house" (Invece si può!)</td>
+                    <td><span class="falso">F</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="slide">
+            <h1>Le Domande: "Il Picking (Selezionamento)"</h1>
+            <table>
+                <tr>
+                    <th width="25%">Inizio frase</th>
+                    <th width="60%">Cerca questa parola (Focus)</th>
+                    <th width="15%">V/F</th>
+                </tr>
+                <tr>
+                    <td><span class="radice">Il picking...</span></td>
+                    <td>...è l'attività di <span class="chiave">prelievo parziale / raggruppare colli</span></td>
+                    <td><span class="vero">V</span></td>
+                </tr>
+                <tr>
+                    <td><span class="radice">Il picking...</span></td>
+                    <td>...è la <span class="chiave">consegna all'utente finale</span> (Quello è l'ultimo miglio)</td>
+                    <td><span class="falso">F</span></td>
+                </tr>
+                <tr>
+                    <td><span class="radice">Il picking...</span></td>
+                    <td>...<span class="chiave">non è una fase critica</span> dell'e-commerce</td>
+                    <td><span class="falso">F</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="slide">
+            <h1>Le Domande: "Imballaggi e Logistica di ritorno"</h1>
+            <table>
+                <tr>
+                    <th width="25%">Inizio frase</th>
+                    <th width="60%">Cerca questa parola (Focus)</th>
+                    <th width="15%">V/F</th>
+                </tr>
+                <tr>
+                    <td><span class="radice">Il packaging...</span></td>
+                    <td>...le caratteristiche sono: <span class="chiave">riduzione, riutilizzo e riciclo</span> (Le 3 R vere)</td>
+                    <td><span class="vero">V</span></td>
+                </tr>
+                <tr>
+                    <td><span class="radice">Il packaging...</span></td>
+                    <td>...le caratteristiche sono: <span class="chiave">modularità, micronizzazione e moralità</span></td>
+                    <td><span class="falso">F</span></td>
+                </tr>
+                <tr>
+                    <td><span class="radice">Gli imballaggi...</span></td>
+                    <td>...<span class="chiave">non possono</span> essere soggetti a logistica di ritorno (I resi si fanno sempre)</td>
+                    <td><span class="falso">F</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="controls">
+            <button onclick="changeSlide(-1)">&#10094; Precedente</button>
+            <span class="slide-counter" id="counter">1 / 13</span>
+            <button onclick="changeSlide(1)">Successivo &#10095;</button>
+        </div>
+
     </div>
 
-    <h2>PARTE 1: Ma a me che importa?! (La realtà dell'autista)</h2>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('counter');
 
-    <div class="analogy-card">
-        <h3>1. Il "Sistema Logistico" e la Visione Integrata</h3>
-        <p><strong>Nei quiz:</strong> Si parla di logistica come sistema complesso connesso ad altri reparti.<br>
-        <strong>Sullo scuolabus:</strong> Tu non sei "solo uno che gira il volante". Se l'officina non fa manutenzione, se l'ufficio non pianifica le fermate, il bus non parte. Sei l'ultimo anello di un <em>sistema aziendale integrato</em>.</p>
-    </div>
+        function showSlide(index) {
+            slides.forEach((slide) => slide.classList.remove('active'));
+            
+            if (index >= slides.length) { currentSlide = 0; }
+            if (index < 0) { currentSlide = slides.length - 1; }
+            
+            slides[currentSlide].classList.add('active');
+            counter.innerText = (currentSlide + 1) + ' / ' + slides.length;
+        }
 
-    <div class="analogy-card">
-        <h3>2. L'E-commerce e "L'Ultimo Miglio"</h3>
-        <p><strong>Nei quiz:</strong> L'ultimo miglio è critico, genera traffico e richiede consegne rapide.<br>
-        <strong>Sullo scuolabus:</strong> Chi intasa le strade di quartiere dove devi manovrare il tuo mezzo da 12 metri? I furgoncini delle consegne! Conoscere l'impatto dell'ultimo miglio ti aiuta a prevedere il traffico urbano e i pericoli (es. corrieri fermi in doppia fila davanti alle scuole).</p>
-    </div>
+        function changeSlide(direction) {
+            currentSlide += direction;
+            showSlide(currentSlide);
+        }
 
-    <div class="analogy-card">
-        <h3>3. La Tracciabilità e il "Cliente Finale"</h3>
-        <p><strong>Nei quiz:</strong> Il cliente vuole tracciare l'ordine, la puntualità è essenziale.<br>
-        <strong>Sullo scuolabus:</strong> Il tuo cliente finale è il genitore alla fermata sotto la pioggia, che magari usa un'app per tracciare il bus. Se ritardi o sbagli fermata (errore di consegna), la fiducia crolla. La puntualità è il tuo prodotto.</p>
-    </div>
+        // Navigazione con la tastiera (frecce destra/sinistra)
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
 
-    <div class="analogy-card">
-        <h3>4. Reverse Logistics (Logistica di ritorno)</h3>
-        <p><strong>Nei quiz:</strong> Serve a recuperare merci o gestire i resi.<br>
-        <strong>Sullo scuolabus:</strong> Cos'è il "reso" per te? È il bambino che non trova i genitori alla fermata e deve essere riportato a scuola/deposito, oppure lo zaino smarrito a bordo che deve tornare al proprietario.</p>
-    </div>
-
-    <div class="analogy-card">
-        <h3>5. Sostenibilità (Impatto Ambientale e Costi)</h3>
-        <p><strong>Nei quiz:</strong> La programmazione corretta abbassa inquinamento e costi.<br>
-        <strong>Sullo scuolabus:</strong> Tenere il motore diesel acceso per 20 minuti davanti a scuola (idling) fa respirare gas di scarico ai bambini e brucia i soldi dell'azienda. Spegnere il motore è "logistica sostenibile" applicata.</p>
-    </div>
-
-    <h2>PARTE 2: Studio Rapido dei Quiz (Il Focus Oculare)</h2>
-    <p>Ecco la mappatura chirurgica per non sbagliare. L'occhio deve ignorare la parte grigia (sempre uguale) e <strong>cercare la parola evidenziata in giallo (la chiave di volta)</strong>.</p>
-
-    <table>
-        <tr>
-            <th width="30%">Radice della frase</th>
-            <th width="60%">La Chiave di Volta (Focus Oculare)</th>
-            <th width="10%">V/F</th>
-        </tr>
-        <tr>
-            <td><span class="radice">La logistica...</span></td>
-            <td>...è l'<span class="chiave">insieme</span> delle attività... / <span class="chiave">risolve</span> problematiche di <span class="chiave">puntualità/rapidità</span></td>
-            <td><span class="vero">V</span></td>
-        </tr>
-        <tr>
-            <td><span class="radice">La logistica...</span></td>
-            <td>...è <span class="chiave">esclusivamente</span> lo stoccaggio... / <span class="chiave">non è influenzata</span> da globalizzazione/frequenza</td>
-            <td><span class="falso">F</span></td>
-        </tr>
-        <tr>
-            <td><span class="radice">La logistica risolve...</span></td>
-            <td>...problematiche legate a: <span class="chiave">manutenzione veicoli / tutela legale / qualità del prodotto</span> (Sono compiti di altri reparti!)</td>
-            <td><span class="falso">F</span></td>
-        </tr>
-    </table>
-
-    <table>
-        <tr>
-            <th width="30%">Radice della frase</th>
-            <th width="60%">La Chiave di Volta (Focus Oculare)</th>
-            <th width="10%">V/F</th>
-        </tr>
-        <tr>
-            <td><span class="radice">Il sistema logistico...</span></td>
-            <td>...è costituito da un <span class="chiave">insieme di sottosistemi interdipendenti</span> / visione <span class="chiave">integrata</span></td>
-            <td><span class="vero">V</span></td>
-        </tr>
-        <tr>
-            <td><span class="radice">Il sistema logistico...</span></td>
-            <td>...si intende il <span class="chiave">parco veicolare</span> / è un <span class="chiave">unico sistema non suddivisibile</span></td>
-            <td><span class="falso">F</span></td>
-        </tr>
-        <tr>
-            <td><span class="radice">Il sistema logistico...</span></td>
-            <td>...<span class="chiave">non deve</span> essere necessariamente <span class="chiave">interfacciato</span></td>
-            <td><span class="falso">F</span></td>
-        </tr>
-    </table>
-
-    <table>
-        <tr>
-            <th width="30%">Radice della frase</th>
-            <th width="60%">La Chiave di Volta (Focus Oculare)</th>
-            <th width="10%">V/F</th>
-        </tr>
-        <tr>
-            <td><span class="radice">La corretta programmazione...</span></td>
-            <td>...diminuisce <span class="chiave">impatto ambientale E i costi</span> (Entrambi i benefici insieme)</td>
-            <td><span class="vero">V</span></td>
-        </tr>
-        <tr>
-            <td><span class="radice">La corretta programmazione...</span></td>
-            <td>...diminuisce i costi <span class="chiave">ma aumenta l'impatto</span> / non ha <span class="chiave">alcuna correlazione</span> col verde</td>
-            <td><span class="falso">F</span></td>
-        </tr>
-        <tr>
-            <td><span class="radice">La corretta programmazione...</span></td>
-            <td>...diminuisce <span class="chiave">solo i costi</span> (Risposta incompleta nel test)</td>
-            <td><span class="falso">F</span></td>
-        </tr>
-    </table>
-
-    <table>
-        <tr>
-            <th width="30%">Radice della frase</th>
-            <th width="60%">La Chiave di Volta (Focus Oculare)</th>
-            <th width="10%">V/F</th>
-        </tr>
-        <tr>
-            <td><span class="radice">L'outsourcing (esternalizzazione)...</span></td>
-            <td>...<span class="chiave">sopperisce alla mancanza</span> di know how / l'impresa ne <span class="chiave">mantiene il controllo</span></td>
-            <td><span class="vero">V</span></td>
-        </tr>
-        <tr>
-            <td><span class="radice">L'outsourcing (esternalizzazione)...</span></td>
-            <td>...<span class="chiave">non comporta rischi</span> / <span class="chiave">non ottiene</span> riduzione costi / <span class="chiave">non aumenta</span> gli standard</td>
-            <td><span class="falso">F</span></td>
-        </tr>
-        <tr>
-            <td><span class="radice">L'outsourcing logistico...</span></td>
-            <td>...<span class="chiave">non può</span> essere realizzato "in house" (FALSO! Si può fare in house)</td>
-            <td><span class="falso">F</span></td>
-        </tr>
-    </table>
-
-    <table>
-        <tr>
-            <th width="30%">Radice della frase</th>
-            <th width="60%">La Chiave di Volta (Focus Oculare)</th>
-            <th width="10%">V/F</th>
-        </tr>
-        <tr>
-            <td><span class="radice">Il picking (selezionamento)...</span></td>
-            <td>...è l'attività di <span class="chiave">prelievo parziale / per raggruppare colli</span></td>
-            <td><span class="vero">V</span></td>
-        </tr>
-        <tr>
-            <td><span class="radice">Il picking (selezionamento)...</span></td>
-            <td>...è la <span class="chiave">consegna all'utente finale</span> (Falso, quello è l'ultimo miglio)</td>
-            <td><span class="falso">F</span></td>
-        </tr>
-        <tr>
-            <td><span class="radice">Il picking (selezionamento)...</span></td>
-            <td>...<span class="chiave">non è una fase critica</span> / il suo costo <span class="chiave">non rientra</span> nei costi logistici</td>
-            <td><span class="falso">F</span></td>
-        </tr>
-    </table>
-
-    <table>
-        <tr>
-            <th width="30%">Radice della frase</th>
-            <th width="60%">La Chiave di Volta (Focus Oculare)</th>
-            <th width="10%">V/F</th>
-        </tr>
-        <tr>
-            <td><span class="radice">Il packaging / Imballaggi...</span></td>
-            <td>...le caratteristiche sono: <span class="chiave">riduzione, riutilizzo e riciclo</span> (Le 3 R vere)</td>
-            <td><span class="vero">V</span></td>
-        </tr>
-        <tr>
-            <td><span class="radice">Il packaging / Imballaggi...</span></td>
-            <td>...le caratteristiche sono: <span class="chiave">modularità, micronizzazione e moralità</span> (Formula inventata)</td>
-            <td><span class="falso">F</span></td>
-        </tr>
-        <tr>
-            <td><span class="radice">Gli imballaggi / Pallets...</span></td>
-            <td>...<span class="chiave">non possono</span> essere soggetti a logistica di ritorno (Falso, il reso si fa sempre)</td>
-            <td><span class="falso">F</span></td>
-        </tr>
-    </table>
+        // Inizializza contatore
+        showSlide(currentSlide);
+    </script>
 
 </body>
 </html>
